@@ -630,7 +630,10 @@ class DirectoryLister {
                         }
 
                         // Add the info to the main array
-                        $directoryArray[pathinfo($relativePath, PATHINFO_BASENAME)] = array(
+                        // zh-CN characters support, ref:https://oblivione.com/directory-lister-chinese/
+                        preg_match('/\/([^\/]*)$/', $relativePath, $matches);
+                        $pathname = isset($matches[1]) ? $matches[1] : $relativePath;
+                        $directoryArray[$pathname] = array(
                             'file_path'  => $relativePath,
                             'url_path'   => $urlPath,
                             'file_size'  => is_dir($realPath) ? '-' : $this->getFileSize($realPath),

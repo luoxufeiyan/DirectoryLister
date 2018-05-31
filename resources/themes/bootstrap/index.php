@@ -1,28 +1,32 @@
 <!DOCTYPE html>
-
+<?php 
+header("Content-type: text/html; charset=utf-8"); 
+if(file_exists($md_file)){
+	$md_text = file_get_contents($md_file);
+}
+?>
 <html>
-
     <head>
 
-        <title>Directory listing of <?php echo $lister->getListedPath(); ?></title>
+        <title>Directory listing of <?php echo $lister->getListedPath(); ?></title> 
         <link rel="shortcut icon" href="<?php echo THEMEPATH; ?>/img/folder.png">
 
         <!-- STYLES -->
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/resources/themes/bootstrap/bootstrap.min.css">
+        <link rel="stylesheet" href="/resources/themes/bootstrap/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="<?php echo THEMEPATH; ?>/css/style.css">
 
         <!-- SCRIPTS -->
-        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <!-- <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
+        <script src="/resources/themes/bootstrap/bootstrap.min.js"></script>
         <script type="text/javascript" src="<?php echo THEMEPATH; ?>/js/directorylister.js"></script>
 
         <!-- FONTS -->
-        <link rel="stylesheet" type="text/css"  href="//fonts.googleapis.com/css?family=Cutive+Mono">
+        <!-- <link rel="stylesheet" type="text/css"  href="//fonts.googleapis.com/css?family=Cutive+Mono"> -->
 
         <!-- META -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
         <?php file_exists('analytics.inc') ? include('analytics.inc') : false; ?>
 
@@ -70,8 +74,7 @@
 
             </div>
         </div>
-
-        <div id="page-content" class="container">
+		<div id="page-content" class="container">
 
             <?php file_exists('header.php') ? include('header.php') : include($lister->getThemePath(true) . "/default_header.php"); ?>
 
@@ -121,6 +124,16 @@
                             <a href="javascript:void(0)" class="file-info-button">
                                 <i class="fa fa-info-circle"></i>
                             </a>
+
+                        <?php else: ?>
+
+                            <?php if ($lister->containsIndex($fileInfo['file_path'])): ?>
+
+                                <a href="<?php echo $fileInfo['file_path']; ?>" class="web-link-button" <?php if($lister->externalLinksNewWindow()): ?>target="_blank"<?php endif; ?>>
+                                    <i class="fa fa-external-link"></i>
+                                </a>
+
+                            <?php endif; ?>
 
                         <?php endif; ?>
 

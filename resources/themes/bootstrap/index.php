@@ -1,10 +1,4 @@
 <!DOCTYPE html>
-<?php 
-header("Content-type: text/html; charset=utf-8"); 
-if(file_exists($md_file)){
-	$md_text = file_get_contents($md_file);
-}
-?>
 <html>
     <head>
 
